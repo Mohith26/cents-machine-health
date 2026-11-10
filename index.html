@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Machine Health · Machines | Cents Business Manager (concept demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="tb-left">
+    <button class="tb-item"><i data-lucide="settings"></i>Admin</button>
+    <button class="tb-item active"><i data-lucide="layout-grid"></i>My Stores</button>
+    <button class="tb-loc"><i data-lucide="store"></i><span id="locLabel">All Locations</span><i data-lucide="chevron-down" class="chev"></i></button>
+  </div>
+  <div class="tb-right">
+    <button class="tb-item"><i data-lucide="message-square"></i>Contact Center</button>
+    <span class="tb-beta"><i data-lucide="sparkles"></i><b>BETA</b></span>
+    <button class="tb-item"><i data-lucide="circle-user-round"></i>Dana</button>
+  </div>
+</header>
+
+<nav class="rail">
+  <div class="rail-top">
+    <button title="Dashboards"><i data-lucide="house"></i></button>
+    <button title="Orders"><i data-lucide="shopping-basket"></i></button>
+    <button title="Customers"><i data-lucide="user-round"></i></button>
+    <button title="Machines" class="active"><i data-lucide="washing-machine"></i></button>
+    <button title="Dispatch"><i data-lucide="truck"></i></button>
+    <button title="Marketing"><i data-lucide="megaphone"></i></button>
+    <button title="Reports"><i data-lucide="clipboard-list"></i></button>
+    <button title="Integrations"><i data-lucide="cog"></i></button>
+  </div>
+  <button title="Help" class="help"><i data-lucide="circle-help"></i></button>
+</nav>
+
+<aside class="subnav">
+  <div class="sn-title">Equipment</div>
+  <a>All Machines</a>
+  <a>All Washers</a>
+  <a>All Dryers</a>
+  <a class="active">Machine Health<span class="new">NEW</span></a>
+  <div class="sn-div"></div>
+  <a>Machine groups</a>
+</aside>
+
+<main class="main" id="main">
+  <section class="card head">
+    <h1>Machine Health</h1>
+    <div class="counters" id="counters"></div>
+  </section>
+
+  <section class="card attention">
+    <div class="card-top">
+      <div><div class="ct-title">Needs attention</div><div class="ct-sub" id="nowLabel"></div></div>
+      <div class="ct-sub right" id="alertRule"></div>
+    </div>
+    <div id="alerts"></div>
+  </section>
+
+  <section class="card list">
+    <div class="list-top">
+      <div class="showing" id="showing"></div>
+      <div class="tools">
+        <label class="search"><i data-lucide="search"></i><input id="q" placeholder="Search"></label>
+        <button class="ic" title="Columns"><i data-lucide="settings"></i></button>
+        <button class="ic" title="Filters"><i data-lucide="sliders-horizontal"></i></button>
+        <button class="btn primary add"><i data-lucide="plus"></i>Add Machine</button>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="grid" id="machines">
+        <thead><tr><th>Machine name</th><th>Status</th><th>Health</th><th>Today</th><th>Previous week stats</th><th>Signals (7 days)</th><th>Location</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="pager" id="pager"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-top">
+      <div><div class="ct-title">How Machine Health would have done</div><div class="ct-sub" id="btSub"></div></div>
+      <div class="slider"><span>Alert threshold</span><input type="range" id="th" min="0.5" max="0.99" step="0.01" value="0.9"><b id="thVal"></b></div>
+    </div>
+    <table class="grid compare" id="cmp"></table>
+    <div class="timeline" id="timeline"></div>
+    <div class="legend"><span><i class="lg fail"></i>Machine actually out of order</span><span><i class="lg hmm"></i>Machine Health alert</span><span><i class="lg rule"></i>"No turns for 12 open hours" alert</span><span><i class="lg fa"></i>False alert</span></div>
+  </section>
+
+  <section class="card method">
+    <div class="ct-title">How it works</div>
+    <p>Many failures never raise an error code: a pulse washer with a stuck door lock still takes the card tap, a dryer with a dead igniter still tumbles. Customers notice first, and they leave a trail in the turn data Cents already has. Machine Health runs a small hidden Markov model per machine with four states: <b>working</b>, <b>not being used</b> (customers avoid it), <b>takes payment, doesn't start</b>, and for dryers <b>runs without heat</b>. Every open hour it scores what the machine did against what it should have done given how busy that store actually was:</p>
+    <ul>
+      <li><b>Turns vs. expected</b>: the machine's trailing share of its group (days d-15 to d-2, so a failure can't drag its own baseline down) times the store's actual traffic that hour, negative binomial with dispersion fitted from the fleet.</li>
+      <li><b>Relocations</b>: a card customer starts this machine, then a same-size sibling within 7 minutes.</li>
+      <li><b>Re-dries</b>: a card customer starts a dryer again 35 to 70 minutes later.</li>
+      <li><b>Refunds and Cents Assist calls</b> that name the machine, against the machine's turns in the last 4 hours.</li>
+    </ul>
+    <p id="methodNums"></p>
+    <table class="grid rel" id="rel"></table>
+  </section>
+
+  <footer class="foot">Unofficial concept demo by Mohith Gajjela. Not affiliated with Cents. Synthetic data generated by <code>scripts/generate.mjs</code> (seed <span id="seed"></span>): <span id="dataDesc"></span>.</footer>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="panel" id="panel" aria-hidden="true"></aside>
+<div class="toast" id="toast"></div>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="data/data.js"></script>
+<script src="data/truth.js"></script>
+<script src="core/health.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

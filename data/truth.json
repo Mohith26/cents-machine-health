@@ -1,0 +1,117 @@
+{
+ "seed": 77031,
+ "failures": [
+  {
+   "id": "atl-W-3",
+   "start": 566,
+   "end": 596,
+   "mode": "nostart",
+   "note": "door lock solenoid"
+  },
+  {
+   "id": "atl-D-7",
+   "start": 626,
+   "end": 696,
+   "mode": "noheat",
+   "note": "gas valve coil"
+  },
+  {
+   "id": "stw-W-6",
+   "start": 715,
+   "end": 759,
+   "mode": "dead",
+   "note": "reader power fault"
+  },
+  {
+   "id": "nwk-D-4",
+   "start": 778,
+   "end": 804,
+   "mode": "nostart",
+   "note": "start button"
+  },
+  {
+   "id": "atl-W-9",
+   "start": 872,
+   "end": 892,
+   "mode": "dead",
+   "note": "drain pump (error not reported on pulse machine)"
+  },
+  {
+   "id": "stw-D-2",
+   "start": 952,
+   "end": 1004,
+   "mode": "noheat",
+   "note": "thermal fuse"
+  },
+  {
+   "id": "nwk-W-2",
+   "start": 1029,
+   "end": 1065,
+   "mode": "nostart",
+   "note": "coin mech jam"
+  },
+  {
+   "id": "atl-D-12",
+   "start": 1091,
+   "end": 1113,
+   "mode": "dead",
+   "note": "belt"
+  },
+  {
+   "id": "stw-W-1",
+   "start": 1161,
+   "end": 1189,
+   "mode": "nostart",
+   "note": "door switch"
+  },
+  {
+   "id": "atl-W-14",
+   "start": 1261,
+   "end": 1321,
+   "mode": "dead",
+   "note": "control board"
+  },
+  {
+   "id": "nwk-D-9",
+   "start": 1326,
+   "end": 1366,
+   "mode": "noheat",
+   "note": "igniter"
+  },
+  {
+   "id": "stw-W-10",
+   "start": 1433,
+   "end": 1466,
+   "mode": "dead",
+   "note": "water inlet valve"
+  },
+  {
+   "id": "atl-D-3",
+   "start": 1500,
+   "end": 1550,
+   "mode": "nostart",
+   "note": "door switch"
+  },
+  {
+   "id": "atl-W-5",
+   "start": 1670,
+   "end": 1680,
+   "mode": "nostart",
+   "note": "door lock solenoid"
+  },
+  {
+   "id": "stw-D-9",
+   "start": 1667,
+   "end": 1680,
+   "mode": "noheat",
+   "note": "gas valve coil"
+  },
+  {
+   "id": "nwk-W-8",
+   "start": 1665,
+   "end": 1680,
+   "mode": "dead",
+   "note": "reader fault"
+  }
+ ]
+}
